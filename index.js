@@ -26,7 +26,8 @@ import {
   cancelOpenCodeConsoleLogin,
   startOpenCodeProviderInteractiveAuth,
   getOpenCodeInteractiveAuthStatus,
-  cancelOpenCodeInteractiveAuth
+  cancelOpenCodeInteractiveAuth,
+  switchOpenCodeAccount
 } from './lib/opencode.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -293,6 +294,18 @@ export function apply(ctx) {
         const body = await parseBody(req);
         const { provider, credentialId } = body;
         const result = await logoutOpenCode(provider, credentialId);
+        sendJson(res, result);
+      } catch (err) {
+        sendJson(res, { ok: false, error: err.message }, 400);
+      }
+    });
+
+    // 3o-2. Switch OpenCode Active Account
+    reg('exact', '/api/agent-runner/auth/opencode/switch', async (req, res) => {
+      try {
+        const body = await parseBody(req);
+        const { provider, credentialId } = body;
+        const result = await switchOpenCodeAccount(provider, credentialId);
         sendJson(res, result);
       } catch (err) {
         sendJson(res, { ok: false, error: err.message }, 400);

@@ -77,44 +77,111 @@
   const saveCodexKeyBtn = document.getElementById('saveCodexKeyBtn');
   const codexStatusMsg = document.getElementById('codexStatusMsg');
 
-  // OpenCode Elements
+  // OpenCode Agile Elements
   const opencodeBox = document.getElementById('opencodeBox');
-  const closeOpencodeBoxBtn = document.getElementById('closeOpencodeBoxBtn');
   const opencodeTabConsole = document.getElementById('opencodeTabConsole');
-  const opencodeTabProviders = document.getElementById('opencodeTabProviders');
+  const opencodeTabGo = document.getElementById('opencodeTabGo');
+  const opencodeTabPopular = document.getElementById('opencodeTabPopular');
+  const opencodeTabCatalog = document.getElementById('opencodeTabCatalog');
+
   const opencodeConsolePanel = document.getElementById('opencodeConsolePanel');
-  const opencodeProvidersPanel = document.getElementById('opencodeProvidersPanel');
+  const opencodeGoPanel = document.getElementById('opencodeGoPanel');
+  const opencodePopularPanel = document.getElementById('opencodePopularPanel');
+  const opencodeCatalogPanel = document.getElementById('opencodeCatalogPanel');
+
+  // Console subpanel elements
+  const opencodeConsoleToggleDevice = document.getElementById('opencodeConsoleToggleDevice');
+  const opencodeConsoleToggleKey = document.getElementById('opencodeConsoleToggleKey');
+  const opencodeConsoleDeviceSubpanel = document.getElementById('opencodeConsoleDeviceSubpanel');
+  const opencodeConsoleKeySubpanel = document.getElementById('opencodeConsoleKeySubpanel');
   const opencodeDeviceCodeBadge = document.getElementById('opencodeDeviceCodeBadge');
   const copyOpencodeCodeBtn = document.getElementById('copyOpencodeCodeBtn');
   const opencodeConsoleAuthLink = document.getElementById('opencodeConsoleAuthLink');
   const opencodeConsoleStatusMsg = document.getElementById('opencodeConsoleStatusMsg');
+  const opencodeConsoleApiKeyInput = document.getElementById('opencodeConsoleApiKeyInput');
+  const opencodeConsoleLabelInput = document.getElementById('opencodeConsoleLabelInput');
+  const saveOpencodeConsoleKeyBtn = document.getElementById('saveOpencodeConsoleKeyBtn');
+  const opencodeConsoleKeyStatusMsg = document.getElementById('opencodeConsoleKeyStatusMsg');
+
+  // OpenCode Go elements
+  const opencodeGoApiKeyInput = document.getElementById('opencodeGoApiKeyInput');
+  const opencodeGoLabelInput = document.getElementById('opencodeGoLabelInput');
+  const saveOpencodeGoKeyBtn = document.getElementById('saveOpencodeGoKeyBtn');
+  const opencodeGoStatusMsg = document.getElementById('opencodeGoStatusMsg');
+
+  // Popular elements
+  const popPillOpenAI = document.getElementById('popPillOpenAI');
+  const popPillAnthropic = document.getElementById('popPillAnthropic');
+  const popPillGoogle = document.getElementById('popPillGoogle');
+  const popPillCopilot = document.getElementById('popPillCopilot');
+  const popPillDeepSeek = document.getElementById('popPillDeepSeek');
+  const popPillOpenRouter = document.getElementById('popPillOpenRouter');
+
+  const popContentOpenAI = document.getElementById('popContentOpenAI');
+  const popContentAnthropic = document.getElementById('popContentAnthropic');
+  const popContentGoogle = document.getElementById('popContentGoogle');
+  const popContentCopilot = document.getElementById('popContentCopilot');
+  const popContentDeepSeek = document.getElementById('popContentDeepSeek');
+  const popContentOpenRouter = document.getElementById('popContentOpenRouter');
+
+  // OpenAI sub-elements
+  const openaiToggleDevice = document.getElementById('openaiToggleDevice');
+  const openaiToggleKey = document.getElementById('openaiToggleKey');
+  const openaiToggleBrowser = document.getElementById('openaiToggleBrowser');
+  const openaiDeviceSubpanel = document.getElementById('openaiDeviceSubpanel');
+  const openaiKeySubpanel = document.getElementById('openaiKeySubpanel');
+  const openaiBrowserSubpanel = document.getElementById('openaiBrowserSubpanel');
+  const opencodeOpenAIDeviceCodeBadge = document.getElementById('opencodeOpenAIDeviceCodeBadge');
+  const copyOpencodeOpenAICodeBtn = document.getElementById('copyOpencodeOpenAICodeBtn');
+  const opencodeOpenAIDeviceLink = document.getElementById('opencodeOpenAIDeviceLink');
+  const opencodeOpenAIStatusMsg = document.getElementById('opencodeOpenAIStatusMsg');
+  const opencodeOpenAIApiKeyInput = document.getElementById('opencodeOpenAIApiKeyInput');
+  const saveOpencodeOpenAIKeyBtn = document.getElementById('saveOpencodeOpenAIKeyBtn');
+  const opencodeStartOpenAIBrowserBtn = document.getElementById('opencodeStartOpenAIBrowserBtn');
+
+  // Anthropic elements
+  const opencodeAnthropicApiKeyInput = document.getElementById('opencodeAnthropicApiKeyInput');
+  const opencodeAnthropicLabelInput = document.getElementById('opencodeAnthropicLabelInput');
+  const saveOpencodeAnthropicKeyBtn = document.getElementById('saveOpencodeAnthropicKeyBtn');
+  const opencodeAnthropicStatusMsg = document.getElementById('opencodeAnthropicStatusMsg');
+
+  // Google elements
+  const opencodeGoogleApiKeyInput = document.getElementById('opencodeGoogleApiKeyInput');
+  const saveOpencodeGoogleKeyBtn = document.getElementById('saveOpencodeGoogleKeyBtn');
+  const opencodeGoogleStatusMsg = document.getElementById('opencodeGoogleStatusMsg');
+
+  // Copilot elements
+  const opencodeCopilotDeviceCodeBadge = document.getElementById('opencodeCopilotDeviceCodeBadge');
+  const copyOpencodeCopilotCodeBtn = document.getElementById('copyOpencodeCopilotCodeBtn');
+  const opencodeCopilotDeviceLink = document.getElementById('opencodeCopilotDeviceLink');
+  const opencodeCopilotStatusMsg = document.getElementById('opencodeCopilotStatusMsg');
+
+  // DeepSeek elements
+  const opencodeDeepSeekApiKeyInput = document.getElementById('opencodeDeepSeekApiKeyInput');
+  const saveOpencodeDeepSeekKeyBtn = document.getElementById('saveOpencodeDeepSeekKeyBtn');
+  const opencodeDeepSeekStatusMsg = document.getElementById('opencodeDeepSeekStatusMsg');
+
+  // OpenRouter elements
+  const opencodeOpenRouterApiKeyInput = document.getElementById('opencodeOpenRouterApiKeyInput');
+  const saveOpencodeOpenRouterKeyBtn = document.getElementById('saveOpencodeOpenRouterKeyBtn');
+  const opencodeOpenRouterStatusMsg = document.getElementById('opencodeOpenRouterStatusMsg');
+
+  // Catalog elements
+  const opencodeProviderSearch = document.getElementById('opencodeProviderSearch');
   const opencodeProviderSelect = document.getElementById('opencodeProviderSelect');
+  const opencodeProviderDocLink = document.getElementById('opencodeProviderDocLink');
+  const opencodeCatalogCountBadge = document.getElementById('opencodeCatalogCountBadge');
   const opencodeCustomTargetBox = document.getElementById('opencodeCustomTargetBox');
   const opencodeCustomTargetInput = document.getElementById('opencodeCustomTargetInput');
   const opencodeLabelInput = document.getElementById('opencodeLabelInput');
   const opencodeApiKeyInput = document.getElementById('opencodeApiKeyInput');
   const submitOpencodeLoginBtn = document.getElementById('submitOpencodeLoginBtn');
-  const refreshOpencodeListBtn = document.getElementById('refreshOpencodeListBtn');
+  const opencodeCatalogStatusMsg = document.getElementById('opencodeCatalogStatusMsg');
+
+  // Accounts list elements
   const opencodeIntegrationsList = document.getElementById('opencodeIntegrationsList');
-  const opencodeStatusMsg = document.getElementById('opencodeStatusMsg');
-  const opencodeProviderSearch = document.getElementById('opencodeProviderSearch');
-  const opencodeCatalogCountBadge = document.getElementById('opencodeCatalogCountBadge');
-  const opencodeProviderDocLink = document.getElementById('opencodeProviderDocLink');
-  const opencodeOpenAIOAuthBox = document.getElementById('opencodeOpenAIOAuthBox');
-  const opencodeStartOpenAIDeviceBtn = document.getElementById('opencodeStartOpenAIDeviceBtn');
-  const opencodeStartOpenAIBrowserBtn = document.getElementById('opencodeStartOpenAIBrowserBtn');
-  const opencodeOpenAIDeviceActiveBox = document.getElementById('opencodeOpenAIDeviceActiveBox');
-  const opencodeOpenAIDeviceCodeBadge = document.getElementById('opencodeOpenAIDeviceCodeBadge');
-  const copyOpencodeOpenAICodeBtn = document.getElementById('copyOpencodeOpenAICodeBtn');
-  const opencodeOpenAIDeviceLink = document.getElementById('opencodeOpenAIDeviceLink');
-  const opencodeOpenAIStatusMsg = document.getElementById('opencodeOpenAIStatusMsg');
-  const opencodeCopilotOAuthBox = document.getElementById('opencodeCopilotOAuthBox');
-  const opencodeStartCopilotDeviceBtn = document.getElementById('opencodeStartCopilotDeviceBtn');
-  const opencodeCopilotDeviceActiveBox = document.getElementById('opencodeCopilotDeviceActiveBox');
-  const opencodeCopilotDeviceCodeBadge = document.getElementById('opencodeCopilotDeviceCodeBadge');
-  const copyOpencodeCopilotCodeBtn = document.getElementById('copyOpencodeCopilotCodeBtn');
-  const opencodeCopilotDeviceLink = document.getElementById('opencodeCopilotDeviceLink');
-  const opencodeCopilotStatusMsg = document.getElementById('opencodeCopilotStatusMsg');
+  const refreshOpencodeListBtn = document.getElementById('refreshOpencodeListBtn');
+
   let fullOpenCodeCatalog = null;
   let currentOpenCodeConsoleSessionId = null;
   let opencodeConsolePollInterval = null;
@@ -311,10 +378,6 @@
       });
     }
 
-    if (closeOpencodeBoxBtn) {
-      closeOpencodeBoxBtn.addEventListener('click', closeAllLoginModals);
-    }
-
     if (authModalCloseBtn) {
       authModalCloseBtn.addEventListener('click', closeAllLoginModals);
     }
@@ -329,38 +392,126 @@
       if (e.key === 'Escape') closeAllLoginModals();
     });
 
+    // 4 OpenCode Subtabs
     if (opencodeTabConsole) {
       opencodeTabConsole.addEventListener('click', () => handleSelectOpenCodeTab('console'));
     }
-
-    if (opencodeTabProviders) {
-      opencodeTabProviders.addEventListener('click', () => handleSelectOpenCodeTab('providers'));
+    if (opencodeTabGo) {
+      opencodeTabGo.addEventListener('click', () => handleSelectOpenCodeTab('go'));
+    }
+    if (opencodeTabPopular) {
+      opencodeTabPopular.addEventListener('click', () => handleSelectOpenCodeTab('popular'));
+    }
+    if (opencodeTabCatalog) {
+      opencodeTabCatalog.addEventListener('click', () => handleSelectOpenCodeTab('catalog'));
     }
 
+    // Tab 1: Console subpanel listeners
+    if (opencodeConsoleToggleDevice) {
+      opencodeConsoleToggleDevice.addEventListener('click', () => handleSelectConsoleMode('device'));
+    }
+    if (opencodeConsoleToggleKey) {
+      opencodeConsoleToggleKey.addEventListener('click', () => handleSelectConsoleMode('key'));
+    }
     if (copyOpencodeCodeBtn) {
       copyOpencodeCodeBtn.addEventListener('click', handleCopyOpenCodeCode);
     }
-
-    if (opencodeStartOpenAIDeviceBtn) {
-      opencodeStartOpenAIDeviceBtn.addEventListener('click', () => handleStartOpenCodeProviderAuth('openai', 'chatgpt-headless'));
+    if (saveOpencodeConsoleKeyBtn) {
+      saveOpencodeConsoleKeyBtn.addEventListener('click', handleSaveOpenCodeConsoleKey);
     }
 
+    // Tab 2: OpenCode Go listeners
+    if (saveOpencodeGoKeyBtn) {
+      saveOpencodeGoKeyBtn.addEventListener('click', handleSaveOpenCodeGoKey);
+    }
+
+    // Tab 3: Popular pills listeners
+    if (popPillOpenAI) {
+      popPillOpenAI.addEventListener('click', () => handleSelectPopularProvider('openai'));
+    }
+    if (popPillAnthropic) {
+      popPillAnthropic.addEventListener('click', () => handleSelectPopularProvider('anthropic'));
+    }
+    if (popPillGoogle) {
+      popPillGoogle.addEventListener('click', () => handleSelectPopularProvider('google'));
+    }
+    if (popPillCopilot) {
+      popPillCopilot.addEventListener('click', () => handleSelectPopularProvider('copilot'));
+    }
+    if (popPillDeepSeek) {
+      popPillDeepSeek.addEventListener('click', () => handleSelectPopularProvider('deepseek'));
+    }
+    if (popPillOpenRouter) {
+      popPillOpenRouter.addEventListener('click', () => handleSelectPopularProvider('openrouter'));
+    }
+
+    // OpenAI sub-toggle listeners
+    if (openaiToggleDevice) {
+      openaiToggleDevice.addEventListener('click', () => handleSelectOpenAIMethod('device'));
+    }
+    if (openaiToggleKey) {
+      openaiToggleKey.addEventListener('click', () => handleSelectOpenAIMethod('key'));
+    }
+    if (openaiToggleBrowser) {
+      openaiToggleBrowser.addEventListener('click', () => handleSelectOpenAIMethod('browser'));
+    }
+    if (copyOpencodeOpenAICodeBtn) {
+      copyOpencodeOpenAICodeBtn.addEventListener('click', handleCopyOpenCodeOpenAICode);
+    }
+    if (saveOpencodeOpenAIKeyBtn) {
+      saveOpencodeOpenAIKeyBtn.addEventListener('click', () => {
+        const key = opencodeOpenAIApiKeyInput.value.trim();
+        if (!key) { alert('Masukkan OpenAI API Key'); return; }
+        saveGenericProviderKey('openai', key, 'OpenAI Key', saveOpencodeOpenAIKeyBtn, opencodeOpenAIStatusMsg);
+      });
+    }
     if (opencodeStartOpenAIBrowserBtn) {
       opencodeStartOpenAIBrowserBtn.addEventListener('click', () => handleStartOpenCodeProviderAuth('openai', 'chatgpt-browser'));
     }
 
-    if (copyOpencodeOpenAICodeBtn) {
-      copyOpencodeOpenAICodeBtn.addEventListener('click', handleCopyOpenCodeOpenAICode);
+    // Anthropic listener
+    if (saveOpencodeAnthropicKeyBtn) {
+      saveOpencodeAnthropicKeyBtn.addEventListener('click', () => {
+        const key = opencodeAnthropicApiKeyInput.value.trim();
+        const lbl = opencodeAnthropicLabelInput.value.trim() || 'Anthropic Key';
+        if (!key) { alert('Masukkan Anthropic API Key'); return; }
+        saveGenericProviderKey('anthropic', key, lbl, saveOpencodeAnthropicKeyBtn, opencodeAnthropicStatusMsg);
+      });
     }
 
-    if (opencodeStartCopilotDeviceBtn) {
-      opencodeStartCopilotDeviceBtn.addEventListener('click', () => handleStartOpenCodeProviderAuth('github-copilot', 'device'));
+    // Google listener
+    if (saveOpencodeGoogleKeyBtn) {
+      saveOpencodeGoogleKeyBtn.addEventListener('click', () => {
+        const key = opencodeGoogleApiKeyInput.value.trim();
+        if (!key) { alert('Masukkan Google API Key'); return; }
+        saveGenericProviderKey('google', key, 'Google Gemini Key', saveOpencodeGoogleKeyBtn, opencodeGoogleStatusMsg);
+      });
     }
 
+    // Copilot listener
     if (copyOpencodeCopilotCodeBtn) {
       copyOpencodeCopilotCodeBtn.addEventListener('click', handleCopyOpenCodeCopilotCode);
     }
 
+    // DeepSeek listener
+    if (saveOpencodeDeepSeekKeyBtn) {
+      saveOpencodeDeepSeekKeyBtn.addEventListener('click', () => {
+        const key = opencodeDeepSeekApiKeyInput.value.trim();
+        if (!key) { alert('Masukkan DeepSeek API Key'); return; }
+        saveGenericProviderKey('deepseek', key, 'DeepSeek Key', saveOpencodeDeepSeekKeyBtn, opencodeDeepSeekStatusMsg);
+      });
+    }
+
+    // OpenRouter listener
+    if (saveOpencodeOpenRouterKeyBtn) {
+      saveOpencodeOpenRouterKeyBtn.addEventListener('click', () => {
+        const key = opencodeOpenRouterApiKeyInput.value.trim();
+        if (!key) { alert('Masukkan OpenRouter API Key'); return; }
+        saveGenericProviderKey('openrouter', key, 'OpenRouter Key', saveOpencodeOpenRouterKeyBtn, opencodeOpenRouterStatusMsg);
+      });
+    }
+
+    // Tab 4: Catalog listeners
     if (opencodeProviderSelect) {
       opencodeProviderSelect.addEventListener('change', () => {
         if (opencodeProviderSelect.value === 'custom') {
@@ -369,19 +520,6 @@
         } else {
           opencodeCustomTargetBox.classList.add('hidden');
         }
-
-        if (opencodeProviderSelect.value === 'openai') {
-          if (opencodeOpenAIOAuthBox) opencodeOpenAIOAuthBox.classList.remove('hidden');
-          if (opencodeCopilotOAuthBox) opencodeCopilotOAuthBox.classList.add('hidden');
-        } else if (opencodeProviderSelect.value === 'github-copilot') {
-          if (opencodeCopilotOAuthBox) opencodeCopilotOAuthBox.classList.remove('hidden');
-          if (opencodeOpenAIOAuthBox) opencodeOpenAIOAuthBox.classList.add('hidden');
-        } else {
-          if (opencodeOpenAIOAuthBox) opencodeOpenAIOAuthBox.classList.add('hidden');
-          if (opencodeCopilotOAuthBox) opencodeCopilotOAuthBox.classList.add('hidden');
-          stopOpenCodeProviderPolling();
-        }
-
         updateOpenCodeDocLink();
       });
     }
@@ -842,22 +980,169 @@
   async function handleSelectOpenCodeTab(tab) {
     currentOpenCodeTab = tab;
     stopOpenCodeConsolePolling();
+    stopOpenCodeProviderPolling();
 
-    if (!opencodeTabConsole || !opencodeTabProviders) return;
+    const tabs = [
+      { id: 'console', btn: opencodeTabConsole, panel: opencodeConsolePanel },
+      { id: 'go', btn: opencodeTabGo, panel: opencodeGoPanel },
+      { id: 'popular', btn: opencodeTabPopular, panel: opencodePopularPanel },
+      { id: 'catalog', btn: opencodeTabCatalog, panel: opencodeCatalogPanel },
+    ];
+
+    tabs.forEach((t) => {
+      if (t.btn) {
+        if (t.id === tab) {
+          t.btn.classList.add('active');
+        } else {
+          t.btn.classList.remove('active');
+        }
+      }
+      if (t.panel) {
+        if (t.id === tab) {
+          t.panel.classList.remove('hidden');
+        } else {
+          t.panel.classList.add('hidden');
+        }
+      }
+    });
 
     if (tab === 'console') {
-      opencodeTabConsole.className = 'flex-1 py-1 px-1.5 rounded bg-indigo-600 text-white transition text-center truncate cursor-pointer font-medium';
-      opencodeTabProviders.className = 'flex-1 py-1 px-1.5 rounded text-slate-400 hover:text-slate-200 transition text-center truncate cursor-pointer';
-      opencodeConsolePanel.classList.remove('hidden');
-      opencodeProvidersPanel.classList.add('hidden');
-      await handleStartOpenCodeConsoleLogin();
-    } else if (tab === 'providers') {
-      opencodeTabProviders.className = 'flex-1 py-1 px-1.5 rounded bg-indigo-600 text-white transition text-center truncate cursor-pointer font-medium';
-      opencodeTabConsole.className = 'flex-1 py-1 px-1.5 rounded text-slate-400 hover:text-slate-200 transition text-center truncate cursor-pointer';
-      opencodeProvidersPanel.classList.remove('hidden');
-      opencodeConsolePanel.classList.add('hidden');
+      if (!opencodeConsoleKeySubpanel || opencodeConsoleKeySubpanel.classList.contains('hidden')) {
+        await handleStartOpenCodeConsoleLogin();
+      }
+    } else if (tab === 'popular') {
+      handleSelectPopularProvider('openai');
+    } else if (tab === 'catalog') {
       loadOpenCodeCatalog();
-      loadOpenCodeIntegrations();
+    }
+    loadOpenCodeIntegrations();
+  }
+
+  function handleSelectConsoleMode(mode) {
+    if (mode === 'device') {
+      if (opencodeConsoleToggleDevice) opencodeConsoleToggleDevice.classList.add('active');
+      if (opencodeConsoleToggleKey) opencodeConsoleToggleKey.classList.remove('active');
+      if (opencodeConsoleDeviceSubpanel) opencodeConsoleDeviceSubpanel.classList.remove('hidden');
+      if (opencodeConsoleKeySubpanel) opencodeConsoleKeySubpanel.classList.add('hidden');
+      handleStartOpenCodeConsoleLogin();
+    } else {
+      if (opencodeConsoleToggleKey) opencodeConsoleToggleKey.classList.add('active');
+      if (opencodeConsoleToggleDevice) opencodeConsoleToggleDevice.classList.remove('active');
+      if (opencodeConsoleKeySubpanel) opencodeConsoleKeySubpanel.classList.remove('hidden');
+      if (opencodeConsoleDeviceSubpanel) opencodeConsoleDeviceSubpanel.classList.add('hidden');
+      stopOpenCodeConsolePolling();
+    }
+  }
+
+  async function handleSaveOpenCodeConsoleKey() {
+    const apiKey = opencodeConsoleApiKeyInput ? opencodeConsoleApiKeyInput.value.trim() : '';
+    const label = (opencodeConsoleLabelInput && opencodeConsoleLabelInput.value.trim()) || 'Service Account';
+    if (!apiKey) {
+      alert('Masukkan OpenCode Console API Key');
+      return;
+    }
+    await saveGenericProviderKey('opencode', apiKey, label, saveOpencodeConsoleKeyBtn, opencodeConsoleKeyStatusMsg);
+  }
+
+  async function handleSaveOpenCodeGoKey() {
+    const apiKey = opencodeGoApiKeyInput ? opencodeGoApiKeyInput.value.trim() : '';
+    const label = (opencodeGoLabelInput && opencodeGoLabelInput.value.trim()) || 'OpenCode Go Key';
+    if (!apiKey) {
+      alert('Masukkan OpenCode Go API Key');
+      return;
+    }
+    await saveGenericProviderKey('opencode-go', apiKey, label, saveOpencodeGoKeyBtn, opencodeGoStatusMsg);
+  }
+
+  function handleSelectPopularProvider(prov) {
+    const providers = [
+      { id: 'openai', pill: popPillOpenAI, content: popContentOpenAI },
+      { id: 'anthropic', pill: popPillAnthropic, content: popContentAnthropic },
+      { id: 'google', pill: popPillGoogle, content: popContentGoogle },
+      { id: 'copilot', pill: popPillCopilot, content: popContentCopilot },
+      { id: 'deepseek', pill: popPillDeepSeek, content: popContentDeepSeek },
+      { id: 'openrouter', pill: popPillOpenRouter, content: popContentOpenRouter }
+    ];
+
+    providers.forEach((p) => {
+      if (p.pill) {
+        if (p.id === prov) p.pill.classList.add('active');
+        else p.pill.classList.remove('active');
+      }
+      if (p.content) {
+        if (p.id === prov) p.content.classList.remove('hidden');
+        else p.content.classList.add('hidden');
+      }
+    });
+
+    if (prov === 'copilot') {
+      handleStartOpenCodeProviderAuth('github-copilot', 'device');
+    } else if (prov === 'openai') {
+      handleSelectOpenAIMethod('device');
+    }
+  }
+
+  function handleSelectOpenAIMethod(method) {
+    if (!openaiToggleDevice || !openaiToggleKey || !openaiToggleBrowser) return;
+    [openaiToggleDevice, openaiToggleKey, openaiToggleBrowser].forEach((btn) => btn.classList.remove('active'));
+    [openaiDeviceSubpanel, openaiKeySubpanel, openaiBrowserSubpanel].forEach((pnl) => pnl && pnl.classList.add('hidden'));
+
+    if (method === 'device') {
+      openaiToggleDevice.classList.add('active');
+      if (openaiDeviceSubpanel) openaiDeviceSubpanel.classList.remove('hidden');
+      handleStartOpenCodeProviderAuth('openai', 'chatgpt-headless');
+    } else if (method === 'key') {
+      openaiToggleKey.classList.add('active');
+      if (openaiKeySubpanel) openaiKeySubpanel.classList.remove('hidden');
+      stopOpenCodeProviderPolling();
+    } else if (method === 'browser') {
+      openaiToggleBrowser.classList.add('active');
+      if (openaiBrowserSubpanel) openaiBrowserSubpanel.classList.remove('hidden');
+      stopOpenCodeProviderPolling();
+    }
+  }
+
+  async function saveGenericProviderKey(provider, apiKey, label, btnEl, statusEl) {
+    try {
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.textContent = 'Menyimpan...';
+      }
+      if (statusEl) {
+        statusEl.textContent = `Menyimpan kredensial ${provider}...`;
+        statusEl.className = 'text-[11px] text-indigo-400 font-mono';
+      }
+
+      const res = await fetch('/api/agent-runner/auth/opencode/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ provider, apiKey, label })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        if (statusEl) {
+          statusEl.textContent = `✓ Berhasil menyimpan ${provider.toUpperCase()}!`;
+          statusEl.className = 'text-[11px] text-emerald-400 font-mono font-bold';
+        }
+        await loadOpenCodeIntegrations();
+        await loadAccount('opencode');
+        await loadOpenCodeModels();
+      } else {
+        if (statusEl) {
+          statusEl.textContent = `Gagal: ${data.error || 'Terjadi kesalahan'}`;
+          statusEl.className = 'text-[11px] text-rose-400 font-mono';
+        }
+      }
+    } catch (err) {
+      if (statusEl) {
+        statusEl.textContent = `Error: ${err.message}`;
+        statusEl.className = 'text-[11px] text-rose-400 font-mono';
+      }
+    } finally {
+      if (btnEl) {
+        btnEl.disabled = false;
+        btnEl.textContent = 'Simpan';
+      }
     }
   }
 
@@ -954,16 +1239,14 @@
     try {
       stopOpenCodeProviderPolling();
       const isCopilot = provider === 'github-copilot';
-      const activeBox = isCopilot ? opencodeCopilotDeviceActiveBox : opencodeOpenAIDeviceActiveBox;
       const badge = isCopilot ? opencodeCopilotDeviceCodeBadge : opencodeOpenAIDeviceCodeBadge;
       const link = isCopilot ? opencodeCopilotDeviceLink : opencodeOpenAIDeviceLink;
       const statusMsg = isCopilot ? opencodeCopilotStatusMsg : opencodeOpenAIStatusMsg;
 
-      if (!activeBox) return;
-
-      activeBox.classList.remove('hidden');
-      statusMsg.textContent = `Menghubungi ${provider} (${method})...`;
-      statusMsg.className = 'text-[10px] text-indigo-400 font-mono';
+      if (statusMsg) {
+        statusMsg.textContent = `Menghubungi ${provider} (${method})...`;
+        statusMsg.className = 'text-[10px] text-indigo-400 font-mono';
+      }
       if (badge) badge.textContent = 'Menunggu...';
 
       const res = await fetch('/api/agent-runner/auth/opencode/interactive/start', {
@@ -1173,42 +1456,82 @@
     }
   }
 
+  async function handleSwitchOpenCodeAccount(provider, credentialId) {
+    try {
+      const res = await fetch('/api/agent-runner/auth/opencode/switch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ provider, credentialId })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        await loadOpenCodeIntegrations();
+        await loadAccount('opencode');
+        await loadOpenCodeModels();
+      } else {
+        alert('Gagal berganti akun: ' + (data.error || 'Unknown error'));
+      }
+    } catch (err) {
+      alert('Error saat berganti akun: ' + err.message);
+    }
+  }
+
   // OpenCode Interactive Auth Logic
   async function loadOpenCodeIntegrations() {
     if (!opencodeIntegrationsList) return;
     try {
-      opencodeIntegrationsList.innerHTML = '<div class="text-[10px] text-slate-500 italic p-1.5">Memuat daftar provider...</div>';
+      opencodeIntegrationsList.innerHTML = '<div class="text-[10px] text-slate-500 italic p-1.5">Memuat daftar provider terhubung...</div>';
       const res = await fetch('/api/agent-runner/auth/opencode/list');
       const data = await res.json();
       const list = data.integrations || [];
 
       if (list.length === 0) {
-        opencodeIntegrationsList.innerHTML = '<div class="text-[10px] text-slate-500 italic p-1.5">Belum ada provider terhubung. Hubungkan provider di atas.</div>';
+        opencodeIntegrationsList.innerHTML = '<div class="text-[11px] text-slate-500 italic p-2 text-center bg-slate-950/40 rounded border border-slate-800/50">Belum ada provider terhubung. Silakan login atau masukkan API key pada sub-tab di atas.</div>';
         return;
       }
 
-      opencodeIntegrationsList.innerHTML = list.map((item) => `
-        <div class="flex items-center justify-between p-1.5 bg-slate-950/80 border border-slate-800 rounded text-[11px]">
-          <div class="flex items-center gap-2 truncate">
-            <span class="px-1.5 py-0.5 rounded bg-indigo-950 text-indigo-300 font-mono text-[10px] uppercase font-bold border border-indigo-800/80 shrink-0">
-              ${escapeHtml(item.integrationID)}
-            </span>
-            <div class="truncate">
-              <span class="text-slate-200 font-medium">${escapeHtml(item.label || item.integrationID)}</span>
-              <span class="text-slate-500 font-mono text-[10px] ml-1">(${escapeHtml(item.maskedKey)})</span>
+      opencodeIntegrationsList.innerHTML = list.map((item) => {
+        const isActive = !!item.active;
+        return `
+          <div class="opencode-acc-card ${isActive ? 'active' : ''}">
+            <div class="flex items-center gap-2 truncate min-w-0">
+              <span class="opencode-badge-provider">
+                ${escapeHtml(item.integrationID || item.provider)}
+              </span>
+              <div class="truncate">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-slate-200 font-semibold truncate text-[11px]">${escapeHtml(item.label || item.integrationID)}</span>
+                  <span class="opencode-status-badge ${isActive ? 'active' : 'inactive'}">
+                    ${isActive ? '✓ Aktif' : 'Tersimpan'}
+                  </span>
+                </div>
+                <div class="text-slate-500 font-mono text-[10px] truncate">
+                  ${escapeHtml(item.maskedKey || item.value?.key || 'Connected')}
+                </div>
+              </div>
+            </div>
+            <div class="shrink-0 flex items-center gap-1.5">
+              ${!isActive ? `
+                <button class="opencode-switch-btn" data-provider="${escapeHtml(item.integrationID)}" data-id="${escapeHtml(item.id)}" title="Jadikan akun aktif untuk provider ini">
+                  Set Aktif
+                </button>
+              ` : ''}
+              <button class="opencode-logout-btn bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-800/40 hover:border-rose-700 text-[10px] px-2 py-0.5 rounded cursor-pointer transition font-medium" data-provider="${escapeHtml(item.integrationID)}" data-id="${escapeHtml(item.id)}" title="Putuskan / hapus akun ini">
+                Putuskan
+              </button>
             </div>
           </div>
-          <div class="shrink-0 ml-2 flex items-center gap-1.5">
-            ${item.type === 'key' ? `
-              <button class="opencode-logout-btn bg-rose-950/60 hover:bg-rose-900 text-rose-300 border border-rose-800/60 text-[10px] px-2 py-0.5 rounded cursor-pointer transition" data-provider="${escapeHtml(item.integrationID)}" data-id="${escapeHtml(item.id)}">
-                Logout
-              </button>
-            ` : `
-              <span class="text-[10px] text-slate-500 font-mono px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">config</span>
-            `}
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
+
+      // Wire up switch buttons
+      document.querySelectorAll('.opencode-switch-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const provider = btn.getAttribute('data-provider');
+          const id = btn.getAttribute('data-id');
+          await handleSwitchOpenCodeAccount(provider, id);
+        });
+      });
 
       // Wire up logout buttons
       document.querySelectorAll('.opencode-logout-btn').forEach((btn) => {

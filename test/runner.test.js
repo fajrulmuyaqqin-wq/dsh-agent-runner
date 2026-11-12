@@ -158,5 +158,19 @@ test('10. OpenCode provider interactive auth (OpenAI chatgpt-headless)', async (
   assert.ok(canceled, 'Session must cancel cleanly');
 });
 
+test('11. OpenCode Go API key import and auth logout', async () => {
+  const { loginOpenCode, logoutOpenCode } = await import('../lib/opencode.js');
+  const res = await loginOpenCode('opencode-go', 'test-opencode-go-key-xyz', 'Test Go Key');
+  assert.ok(res.ok, 'Login must succeed');
+  assert.equal(res.provider, 'opencode-go');
+  assert.equal(res.label, 'Test Go Key');
+  assert.ok(res.id, 'Must return credential id');
+
+  // Clean up
+  const logoutRes = await logoutOpenCode('opencode-go', res.id);
+  assert.ok(logoutRes.ok, 'Logout must succeed');
+});
+
+
 
 

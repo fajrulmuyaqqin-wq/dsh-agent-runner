@@ -24,6 +24,9 @@
       ]
     }
   },
+  "scripts": {
+    "test": "node --test test/runner.test.js"
+  },
   "dependencies": {},
   "devDependencies": {}
 }
