@@ -1,0 +1,29 @@
+{
+  "name": "dsh-agent-runner",
+  "version": "0.1.0",
+  "description": "External Agent CLI Runner plugin for DeepSeek Harness based on OpenDesign architecture (Google Antigravity agy, Claude Code, OpenAI Codex, OpenCode)",
+  "type": "module",
+  "license": "MIT",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

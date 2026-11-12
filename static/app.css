@@ -1,0 +1,550 @@
+/* Agent Runner UI Styles */
+
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #090d16;
+  color: #f1f5f9;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-bottom: 6px;
+  transition: all 0.15s ease;
+}
+
+.tab-btn.active {
+  color: #f8fafc;
+  border-bottom: 2px solid #6366f1;
+}
+
+/* Tool card in tools list */
+.tool-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tool-header {
+  background: #0f172a;
+  padding: 8px 12px;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #334155;
+}
+
+.tool-body {
+  padding: 10px 12px;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: pre-wrap;
+  color: #cbd5e1;
+}
+
+/* History card */
+.history-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.history-card:hover {
+  background: #273549;
+}
+
+/* Status colors */
+.status-running {
+  background: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+  border-color: rgba(99, 102, 241, 0.4);
+}
+.status-completed {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+.status-failed {
+  background: rgba(244, 63, 94, 0.2);
+  color: #fda4af;
+  border-color: rgba(244, 63, 94, 0.4);
+}
+.status-canceled {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* Minimal utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1 1 0%; }
+.shrink-0 { flex-shrink: 0; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.h-screen { height: 100vh; }
+.h-full { height: 100%; }
+.w-full { width: 100%; }
+.w-8 { width: 2rem; }
+.h-8 { height: 2rem; }
+.w-2 { width: 0.5rem; }
+.h-2 { height: 0.5rem; }
+.rounded-full { border-radius: 9999px; }
+.rounded-lg { border-radius: 0.5rem; }
+.overflow-hidden { overflow: hidden; }
+.overflow-y-auto { overflow-y: auto; }
+.border { border-width: 1px; }
+.border-b { border-bottom-width: 1px; }
+.border-r { border-right-width: 1px; }
+.p-3 { padding: 0.75rem; }
+.p-5 { padding: 1.25rem; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+.py-3\.5 { padding-top: 0.875rem; padding-bottom: 0.875rem; }
+.grid { display: grid; }
+.grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.col-span-5 { grid-column: span 5 / span 5; }
+.col-span-7 { grid-column: span 7 / span 7; }
+.space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+.space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.hidden { display: none; }
+
+#oauthLink {
+  display: block;
+  width: 100%;
+  background: #4f46e5;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: background 0.15s ease;
+}
+
+#oauthLink:hover {
+  background: #6366f1;
+}
+
+#googleOAuthBtn {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#googleOAuthBtn:hover {
+  background: rgba(99, 102, 241, 0.25);
+  color: #ffffff;
+}
+
+#submitPastedUrlBtn {
+  background: #334155;
+  color: #f1f5f9;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+#submitPastedUrlBtn:hover {
+  background: #475569;
+}
+
+/* Modal Boxes & Auth Card Styles */
+#opencodeBox, #codexBox, #claudeBox, #oauthBox {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Step Card Hierarchy */
+.step-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 12px 14px;
+  transition: border-color 0.15s ease;
+}
+
+.step-card:hover {
+  border-color: #334155;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.step-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #a5b4fc;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #f1f5f9;
+  line-height: 1.2;
+}
+
+.step-desc {
+  font-size: 10px;
+  color: #64748b;
+  line-height: 1.2;
+  margin-top: 1px;
+}
+
+/* Modal Dialog Overlay */
+#authModalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+#authModalBackdrop.hidden {
+  display: none !important;
+}
+
+#authModalContainer {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+  width: 100%;
+  max-width: 520px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#authModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #0b1120;
+  border-bottom: 1px solid #1e293b;
+  flex-shrink: 0;
+}
+
+#authModalBody {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+#opencodeConsoleAuthLink, #codexChatgptLink, #codexDeviceLink, #claudeAuthLink {
+  display: block;
+  width: 100%;
+  background: #4f46e5;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: background 0.15s ease;
+  margin-top: 6px;
+}
+
+#opencodeConsoleAuthLink:hover, #codexChatgptLink:hover, #codexDeviceLink:hover, #claudeAuthLink:hover {
+  background: #6366f1;
+}
+
+#opencodeDeviceCodeBadge, #codexDeviceCodeBadge {
+  background: #1e1b4b;
+  color: #fbbf24;
+  border: 1px solid #4338ca;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+#copyOpencodeCodeBtn, #copyCodexCodeBtn {
+  background: #312e81;
+  color: #a5b4fc;
+  border: 1px solid #4338ca;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+#copyOpencodeCodeBtn:hover, #copyCodexCodeBtn:hover {
+  background: #3730a3;
+  color: #ffffff;
+}
+
+#opencodeTabConsole, #opencodeTabProviders, #codexTabChatgpt, #codexTabDevice, #codexTabApiKey, #claudeTabSubscription, #claudeTabConsole {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.15s ease;
+}
+
+#opencodeBox input, #opencodeBox select,
+#codexBox input, #claudeBox input {
+  background: #020617;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 11px;
+}
+
+#submitOpencodeLoginBtn, #saveCodexKeyBtn, #submitClaudeCodeBtn {
+  background: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#submitOpencodeLoginBtn:hover, #saveCodexKeyBtn:hover, #submitClaudeCodeBtn:hover {
+  background: #6366f1;
+}
+
+/* Global Form Inputs, Selects, & Textareas */
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+  background-color: #020617 !important;
+  color: #f1f5f9 !important;
+  border: 1px solid #334155 !important;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 11px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+  background-position: right 8px center !important;
+  background-repeat: no-repeat !important;
+  background-size: 16px 16px !important;
+  padding-right: 28px !important;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 1px #6366f1;
+}
+
+/* Header & Footer Layout */
+.config-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  flex-shrink: 0;
+}
+
+.config-header-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.config-header-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #a5b4fc;
+  font-family: ui-monospace, monospace;
+}
+
+.config-header-tag {
+  font-size: 11px;
+  color: #64748b;
+  font-family: ui-monospace, monospace;
+}
+
+.execution-footer {
+  padding: 12px 16px;
+  background: #0b1120;
+  border-top: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Primary Execution Buttons */
+#runBtn {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+#runBtn:hover {
+  background: #6366f1 !important;
+}
+#runBtn:active {
+  background: #4338ca !important;
+}
+
+#cancelBtn {
+  background: rgba(225, 29, 72, 0.2) !important;
+  color: #fda4af !important;
+  border: 1px solid rgba(225, 29, 72, 0.4) !important;
+  font-weight: 500;
+  cursor: pointer;
+}
+#cancelBtn:hover:not(:disabled) {
+  background: rgba(225, 29, 72, 0.35) !important;
+  color: #ffffff !important;
+}
+#cancelBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+#testBtn {
+  background: #1e293b !important;
+  color: #94a3b8 !important;
+  border: 1px solid #334155 !important;
+  cursor: pointer;
+}
+#testBtn:hover {
+  background: #334155 !important;
+  color: #ffffff !important;
+}
+
+#loginAgentBtn {
+  background: rgba(99, 102, 241, 0.15) !important;
+  color: #a5b4fc !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  transition: all 0.15s ease;
+}
+#loginAgentBtn:hover {
+  background: rgba(99, 102, 241, 0.25) !important;
+  color: #ffffff !important;
+}
+
+#switchAccountBtn {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#switchAccountBtn:hover {
+  background: #6366f1 !important;
+}
+
+
