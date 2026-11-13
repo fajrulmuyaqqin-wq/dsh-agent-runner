@@ -43,7 +43,7 @@
       <div class="config-header">
         <div class="config-header-title">
           <span>Konfigurasi Eksekusi</span>
-          <span class="config-header-badge">3 Langkah</span>
+          <span class="config-header-badge">Lingkungan CLI Mandiri</span>
         </div>
         <div class="config-header-tag">Agent CLI Runner</div>
       </div>
@@ -140,6 +140,52 @@
                   <option value="low">Low (Fast)</option>
                 </select>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LANGKAH 2B: Lingkungan Eksekusi CLI (Terpisah dari BYOK) -->
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-badge" style="font-size: 11px;">CLI</div>
+            <div>
+              <h2 class="step-title">Lingkungan Eksekusi CLI (Dedicated Env)</h2>
+              <p class="step-desc">Pengaturan mandiri agent CLI (terpisah dari arsitektur BYOK)</p>
+            </div>
+          </div>
+          <div class="step-body space-y-2.5">
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800 space-y-1.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400 font-medium text-[11px]">Manajemen Konteks:</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800/60 font-semibold">
+                  Native CLI (Tanpa Batasan BYOK)
+                </span>
+              </div>
+              <p class="text-[10px] text-slate-400 leading-relaxed">
+                Agent CLI mengelola konteks, memori, subagent, dan tools secara mandiri. Arsitektur CLI terpisah dari BYOK sehingga tidak dipotong oleh aturan token compaction Harness.
+              </p>
+            </div>
+
+            <!-- Extra CLI Flags -->
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Argumen / Flags CLI Tambahan</label>
+              <input id="extraArgsInput" type="text" placeholder="--dangerously-skip-permissions --verbose" class="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-200 focus:outline-none focus:border-indigo-500 transition" />
+              <p class="text-[10px] text-slate-500 mt-0.5">Argumen kustom yang diparse langsung ke binary CLI saat eksekusi.</p>
+            </div>
+
+            <!-- Custom Environment Variables -->
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Variabel Lingkungan (Custom Env)</label>
+              <input id="customEnvInput" type="text" placeholder="KEY=VALUE, DEBUG=1" class="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-200 focus:outline-none focus:border-indigo-500 transition" />
+              <p class="text-[10px] text-slate-500 mt-0.5">Disuntikkan langsung ke proses agent CLI yang berjalan.</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-slate-800/60 mt-1">
+              <span id="envSaveStatus" class="text-[11px] text-emerald-400 font-mono hidden">✓ Tersimpan di profile CLI</span>
+              <button id="saveEnvBtn" type="button" class="bg-indigo-600/40 hover:bg-indigo-600/60 text-white border border-indigo-500/50 px-3.5 py-1.5 rounded-md text-xs font-medium transition cursor-pointer ml-auto flex items-center gap-1.5 shadow-sm">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Simpan Lingkungan CLI
+              </button>
             </div>
           </div>
         </div>

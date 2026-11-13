@@ -34,6 +34,12 @@
   const loginAgentBtn = document.getElementById('loginAgentBtn');
   const loginAgentBtnText = document.getElementById('loginAgentBtnText');
 
+  // Dedicated CLI Environment Elements
+  const extraArgsInput = document.getElementById('extraArgsInput');
+  const customEnvInput = document.getElementById('customEnvInput');
+  const saveEnvBtn = document.getElementById('saveEnvBtn');
+  const envSaveStatus = document.getElementById('envSaveStatus');
+
   // Auth Management Modal Elements
   const authModalBackdrop = document.getElementById('authModalBackdrop');
   const authModalCloseBtn = document.getElementById('authModalCloseBtn');
@@ -255,8 +261,29 @@
       closeAllLoginModals();
       const selected = agents.find((a) => a.id === agentSelect.value);
       updateModelOptions(selected);
-      if (selected) loadAccount(selected.id);
+      if (selected) {
+        loadAccount(selected.id);
+        loadCliEnvironment(selected.id);
+        try {
+          localStorage.setItem('dsh_active_cli_agent', selected.id);
+          localStorage.setItem('dsh_model_mode', 'cli');
+        } catch {}
+      }
     });
+
+    if (saveEnvBtn) {
+      saveEnvBtn.addEventListener('click', () => {
+        saveCliEnvironment(agentSelect.value);
+      });
+    }
+
+    if (modelSelect) {
+      modelSelect.addEventListener('change', () => {
+        try {
+          localStorage.setItem('dsh_active_cli_model', modelSelect.value);
+        } catch {}
+      });
+    }
 
     if (toggleAuthKeyBtn) {
       toggleAuthKeyBtn.addEventListener('click', () => {
@@ -1715,6 +1742,86 @@
     }
   }
 
+  async function loadCliEnvironment(agentId) {
+    if (!agentId) return;
+    try {
+      const res = await fetch(`/api/agent-runner/environment?agentId=${encodeURIComponent(agentId)}`);
+      const data = await res.json();
+      if (data.ok && data.environment) {
+        const env = data.environment;
+        if (extraArgsInput) {
+          extraArgsInput.value = Array.isArray(env.extraArgs) ? env.extraArgs.join(' ') : '';
+        }
+        if (customEnvInput) {
+          const pairs = [];
+          if (env.env && typeof env.env === 'object') {
+            for (const [k, v] of Object.entries(env.env)) {
+              pairs.push(`${k}=${v}`);
+            }
+          }
+          customEnvInput.value = pairs.join(', ');
+        }
+        if (env.cwd && cwdInput && !cwdInput.value) {
+          cwdInput.value = env.cwd;
+        }
+      }
+    } catch (err) {
+      console.warn('[agent-runner] Failed to load CLI environment:', err);
+    }
+  }
+
+  async function saveCliEnvironment(agentId) {
+    if (!agentId) return;
+    try {
+      if (saveEnvBtn) {
+        saveEnvBtn.disabled = true;
+        saveEnvBtn.textContent = 'Menyimpan...';
+      }
+      const rawArgs = (extraArgsInput?.value || '').trim();
+      const extraArgs = rawArgs ? rawArgs.split(/\s+/).filter(Boolean) : [];
+
+      const rawEnv = (customEnvInput?.value || '').trim();
+      const envObj = {};
+      if (rawEnv) {
+        const parts = rawEnv.split(/[,;\n]+/).map((s) => s.trim()).filter(Boolean);
+        for (const part of parts) {
+          const idx = part.indexOf('=');
+          if (idx > 0) {
+            const k = part.slice(0, idx).trim();
+            const v = part.slice(idx + 1).trim();
+            if (k) envObj[k] = v;
+          }
+        }
+      }
+
+      const updates = {
+        extraArgs,
+        env: envObj,
+        cwd: cwdInput?.value.trim() || ''
+      };
+
+      const res = await fetch('/api/agent-runner/environment/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ agentId, updates })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        if (envSaveStatus) {
+          envSaveStatus.classList.remove('hidden');
+          setTimeout(() => envSaveStatus.classList.add('hidden'), 3500);
+        }
+      }
+    } catch (err) {
+      alert(`Gagal menyimpan lingkungan CLI: ${err.message}`);
+    } finally {
+      if (saveEnvBtn) {
+        saveEnvBtn.disabled = false;
+        saveEnvBtn.textContent = 'Simpan Lingkungan CLI';
+      }
+    }
+  }
+
   async function loadAgents() {
     try {
       const res = await fetch('/api/agent-runner/agents');
@@ -1739,14 +1846,25 @@
 
       detectedCount.textContent = `${installedCount} of ${agents.length} Agent CLIs Ready`;
 
-      if (firstInstalled) {
-        agentSelect.value = firstInstalled.id;
-        updateModelOptions(firstInstalled);
-        loadAccount(firstInstalled.id);
-      } else if (agents.length > 0) {
-        agentSelect.value = agents[0].id;
-        updateModelOptions(agents[0]);
-        loadAccount(agents[0].id);
+      const savedAgentId = localStorage.getItem('dsh_active_cli_agent');
+      const savedAgent = savedAgentId ? agents.find(ag => ag.id === savedAgentId) : null;
+      const targetAgent = (savedAgent && savedAgent.installed ? savedAgent : null)
+        || savedAgent
+        || firstInstalled
+        || (agents.length > 0 ? agents[0] : null);
+
+      if (targetAgent) {
+        agentSelect.value = targetAgent.id;
+        const matchingOpt = Array.from(agentSelect.options).find(o => o.value === targetAgent.id);
+        if (matchingOpt) matchingOpt.selected = true;
+        updateModelOptions(targetAgent);
+        loadAccount(targetAgent.id);
+        loadCliEnvironment(targetAgent.id);
+        const savedModel = localStorage.getItem('dsh_active_cli_model');
+        if (savedModel) {
+          const matchModel = Array.from(modelSelect.options).find(o => o.value === savedModel);
+          if (matchModel) matchModel.selected = true;
+        }
       }
     } catch (err) {
       detectedCount.textContent = 'Failed to load agents';

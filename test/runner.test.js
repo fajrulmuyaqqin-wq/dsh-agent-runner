@@ -171,6 +171,77 @@ test('11. OpenCode Go API key import and auth logout', async () => {
   assert.ok(logoutRes.ok, 'Logout must succeed');
 });
 
+test('12. CLI Agent dedicated environment management (decoupled from BYOK)', async () => {
+  const { getCliEnvironment, updateCliEnvironment, resolveCliExecutionEnvironment } = await import('../lib/environment.js');
+  const agyEnv = getCliEnvironment('agy');
+  assert.equal(agyEnv.contextMode, 'native', 'CLI agent contextMode must be native');
+  assert.equal(agyEnv.id, 'agy');
 
+  // Test updating environment
+  const updated = updateCliEnvironment('agy', {
+    extraArgs: ['--test-flag'],
+    env: { DSH_CLI_TEST: 'active' }
+  });
+  assert.deepEqual(updated.extraArgs, ['--test-flag']);
+  assert.equal(updated.env.DSH_CLI_TEST, 'active');
 
+  // Test resolving execution environment
+  const resolved = resolveCliExecutionEnvironment('agy');
+  assert.equal(resolved.contextMode, 'native');
+  assert.ok(resolved.extraArgs.includes('--test-flag'));
+  assert.equal(resolved.customEnv.DSH_CLI_TEST, 'active');
 
+  // Clean up
+  updateCliEnvironment('agy', {
+    extraArgs: [],
+    env: { DSH_CLI_TEST: undefined }
+  });
+});
+
+test('13. Multi-agent model resolution and stream parsing integrity (agy, claude, codex, opencode, cursor-agent)', async () => {
+  const { CliAgentLlmAdapter } = await import('../lib/llm-adapter.js');
+  const { createStreamParser } = await import('../lib/stream-parsers.js');
+  const adapter = new CliAgentLlmAdapter();
+
+  const agents = ['agy', 'claude', 'codex', 'opencode', 'cursor-agent'];
+  for (const agentId of agents) {
+    const info = await adapter.resolveModel(agentId, 'default');
+    assert.equal(info.provider, agentId);
+    assert.ok(info.context.contextWindow >= 1000000, `${agentId} contextWindow must be unconstrained native capacity`);
+    assert.equal(info.cliEnvironment.contextMode, 'native', `${agentId} contextMode must be native`);
+    assert.equal(info.defaultMaxTokens, undefined, `${agentId} must not have artificial defaultMaxTokens clamp`);
+  }
+
+  // Verify OpenCode stream parser handles JSON error and text deltas
+  const openCodeEvents = [];
+  const openCodeParser = createStreamParser('opencode', (ev) => openCodeEvents.push(ev));
+  openCodeParser(JSON.stringify({ type: 'step_start', sessionID: 'ses_123' }) + '\n');
+  openCodeParser(JSON.stringify({ type: 'text', part: { text: 'Halo dari OpenCode' } }) + '\n');
+  openCodeParser(JSON.stringify({ type: 'error', error: { message: 'OpenCode test error' } }) + '\n');
+  assert.equal(openCodeEvents.length, 3);
+  assert.equal(openCodeEvents[0].type, 'status');
+  assert.equal(openCodeEvents[1].text, 'Halo dari OpenCode');
+  assert.equal(openCodeEvents[2].message, 'OpenCode test error');
+
+  // Verify Claude stream parser handles stream_event partial deltas
+  const claudeEvents = [];
+  const claudeParser = createStreamParser('claude', (ev) => claudeEvents.push(ev));
+  claudeParser(JSON.stringify({ type: 'stream_event', event: { type: 'content_block_delta', delta: { text: 'Claude stream delta' } } }) + '\n');
+  assert.equal(claudeEvents.length, 1);
+  assert.equal(claudeEvents[0].text, 'Claude stream delta');
+
+  // Verify Codex stream parser handles turn completion
+  const codexEvents = [];
+  const codexParser = createStreamParser('codex', (ev) => codexEvents.push(ev));
+  codexParser(JSON.stringify({ type: 'thread.started', thread_id: 'th_123' }) + '\n');
+  codexParser(JSON.stringify({ type: 'turn.completed' }) + '\n');
+  assert.equal(codexEvents.length, 2);
+  assert.equal(codexEvents[1].type, 'done');
+
+  // Verify Cursor Agent stream parser
+  const cursorEvents = [];
+  const cursorParser = createStreamParser('cursor-agent', (ev) => cursorEvents.push(ev));
+  cursorParser(JSON.stringify({ type: 'text_delta', text: 'Cursor delta' }) + '\n');
+  assert.equal(cursorEvents.length, 1);
+  assert.equal(cursorEvents[0].text, 'Cursor delta');
+});

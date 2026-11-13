@@ -29,6 +29,12 @@ import {
   cancelOpenCodeInteractiveAuth,
   switchOpenCodeAccount
 } from './lib/opencode.js';
+import { CliAgentLlmAdapter } from './lib/llm-adapter.js';
+import {
+  loadAllEnvironments,
+  getCliEnvironment,
+  updateCliEnvironment
+} from './lib/environment.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -128,6 +134,38 @@ export function apply(ctx) {
       try {
         const agents = runnerManager.getDetectedAgents(true);
         sendJson(res, { ok: true, agents });
+      } catch (err) {
+        sendJson(res, { ok: false, error: err.message }, 500);
+      }
+    });
+
+    // 3a. CLI Agent Environment Configuration
+    reg('exact', '/api/agent-runner/environment', async (req, res) => {
+      try {
+        const urlObj = new URL(req.url, 'http://127.0.0.1');
+        const agentId = urlObj.searchParams.get('agentId');
+        if (agentId) {
+          const envConfig = getCliEnvironment(agentId);
+          sendJson(res, { ok: true, environment: envConfig });
+        } else {
+          const allEnvs = loadAllEnvironments();
+          sendJson(res, { ok: true, environments: allEnvs });
+        }
+      } catch (err) {
+        sendJson(res, { ok: false, error: err.message }, 500);
+      }
+    });
+
+    // 3a-update. Update CLI Agent Environment Configuration
+    reg('exact', '/api/agent-runner/environment/update', async (req, res) => {
+      try {
+        const body = await parseBody(req);
+        const { agentId, updates } = body;
+        if (!agentId) {
+          return sendJson(res, { ok: false, error: 'agentId is required' }, 400);
+        }
+        const updated = updateCliEnvironment(agentId, updates || {});
+        sendJson(res, { ok: true, environment: updated });
       } catch (err) {
         sendJson(res, { ok: false, error: err.message }, 500);
       }
@@ -512,6 +550,29 @@ export function apply(ctx) {
       }
     });
   });
+
+  // Register LLM Adapter for external CLI agents (agy, opencode, claude, codex, cursor-agent)
+  try {
+    ctx.inject(['llm'], (llmCtx) => {
+      if (!llmCtx.llm?.registerAdapter) return;
+      const existing = new Set(llmCtx.llm.listProviders().map((p) => p.id));
+      const candidates = ['agy', 'opencode', 'claude', 'codex', 'cursor-agent'];
+      const routes = candidates.filter((r) => !existing.has(r));
+      if (routes.length === 0) return;
+      const adapter = new CliAgentLlmAdapter();
+      try {
+        const unreg = llmCtx.llm.registerAdapter(routes, adapter);
+        console.log('[dsh-agent-runner] registered CLI LLM adapter for routes:', routes.join(', '));
+        llmCtx.effect(() => () => {
+          try { if (typeof unreg === 'function') unreg(); } catch {}
+        });
+      } catch (err) {
+        console.warn('[dsh-agent-runner] Failed to register LLM adapter:', err.message);
+      }
+    });
+  } catch (err) {
+    console.warn('[dsh-agent-runner] LLM service injection error:', err.message);
+  }
 
   // Optional tool registration if DSH tools service is present
   try {
